@@ -109,6 +109,32 @@
             50% { box-shadow: 0 0 30px rgba(156, 141, 92, 0.5); }
         }
 
+        /* BOTÃO FLUTUANTE WHATSAPP DIREITA */
+        .whatsapp-float {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: #25D366;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            text-decoration: none;
+            z-index: 950;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 18px rgba(37, 211, 102, 0.35);
+            transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .whatsapp-float:hover {
+            background: #20bd5a;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 24px rgba(37, 211, 102, 0.5);
+        }
+
         /* INTRO TEXTO ABRINDO */
         #intro-screen {
             position: fixed;
@@ -1071,6 +1097,14 @@
         }
 
         @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 48px;
+                height: 48px;
+                right: 12px;
+                bottom: 12px;
+                font-size: 1.55rem;
+            }
+
             header {
                 padding: 13px 16px;
             }
@@ -1359,6 +1393,10 @@
     </style>
 </head>
 <body>
+
+    <a href="https://wa.me/551155395678" target="_blank" class="whatsapp-float" aria-label="Chamar no WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <div id="intro-screen">
         <div class="open-stage">
