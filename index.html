@@ -359,14 +359,6 @@
             transform: translateY(-3px) scale(1.02);
         }
 
-        .btn-main i {
-            transition: transform 0.3s ease;
-        }
-
-        .btn-main:hover i {
-            transform: translateX(5px);
-        }
-
         .btn-secondary {
             display: inline-flex;
             align-items: center;
@@ -934,9 +926,10 @@
             gap: 14px;
         }
 
-        .contact-item i {
+        .contact-item > i {
             font-size: 1.7rem;
             color: var(--color-gold-olive);
+            flex-shrink: 0;
         }
 
         .contact-item h4 {
@@ -948,6 +941,20 @@
         .contact-item p {
             color: var(--color-text-muted);
             font-size: 0.92rem;
+        }
+
+        .whatsapp-number-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--color-ice-white);
+            font-size: 0.94rem;
+            font-weight: 600;
+        }
+
+        .whatsapp-number-inline i {
+            color: #25D366;
+            font-size: 1.1rem;
         }
 
         .contact-buttons {
@@ -1013,11 +1020,6 @@
             color: var(--color-text-muted);
         }
 
-        /* BARRA FIXA MOBILE */
-        .mobile-sticky-bar {
-            display: none;
-        }
-
         /* FOOTER */
         footer {
             text-align: center;
@@ -1058,7 +1060,7 @@
             .booking-wrapper {
                 grid-template-columns: 1fr;
                 padding: 20px 16px;
-                gap: 24px;
+                gap: 22px;
             }
             .booking-summary {
                 position: static;
@@ -1066,10 +1068,6 @@
         }
 
         @media (max-width: 768px) {
-            body {
-                padding-bottom: 76px;
-            }
-
             header {
                 padding: 13px 16px;
             }
@@ -1175,49 +1173,6 @@
             .contact-buttons a {
                 width: 100%;
             }
-
-            footer {
-                padding-bottom: 92px;
-            }
-
-            .mobile-sticky-bar {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                padding: 10px 16px;
-                background: rgba(18, 18, 18, 0.96);
-                backdrop-filter: blur(12px);
-                border-top: 1px solid rgba(156, 141, 92, 0.35);
-                z-index: 90;
-            }
-
-            .mobile-sticky-info span {
-                display: block;
-                font-size: 0.72rem;
-                color: var(--color-text-muted);
-            }
-
-            .mobile-sticky-info strong {
-                font-size: 1.15rem;
-                color: var(--color-gold-olive);
-            }
-
-            .mobile-sticky-btn {
-                background: var(--color-gold-olive);
-                color: var(--color-charcoal);
-                text-decoration: none;
-                font-weight: 800;
-                font-size: 0.9rem;
-                padding: 11px 18px;
-                border-radius: 9px;
-                display: inline-flex;
-                align-items: center;
-                gap: 7px;
-            }
         }
     </style>
 </head>
@@ -1261,7 +1216,7 @@
         <p>Do clássico ao corte moderno, alinhamento perfeito e acabamento impecável em um ambiente exclusivo.</p>
         <div class="hero-actions">
             <a href="#agendamento" class="btn-main">
-                Garantir Meu Horário <i class="fa-solid fa-arrow-right"></i>
+                Garantir Meu Horário
             </a>
             <a href="#galeria" class="btn-secondary">
                 Ver Estilos de Corte
@@ -1516,8 +1471,11 @@
                 <div class="contact-item">
                     <i class="fa-solid fa-phone"></i>
                     <div>
-                        <h4>Telefone / WhatsApp</h4>
-                        <p>+55 (11) 5539-5678</p>
+                        <h4>WhatsApp</h4>
+                        <div class="whatsapp-number-inline">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span>+55 (11) 5539-5678</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1527,7 +1485,7 @@
                     <i class="fa-solid fa-map-location-dot"></i> Abrir no Google Maps
                 </a>
                 <a href="https://wa.me/551155395678" target="_blank" class="btn-main">
-                    <i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
+                    <i class="fa-brands fa-whatsapp"></i> +55 (11) 5539-5678
                 </a>
             </div>
         </div>
@@ -1574,16 +1532,6 @@
             </div>
         </div>
     </section>
-
-    <div class="mobile-sticky-bar">
-        <div class="mobile-sticky-info">
-            <span>Total Estimado</span>
-            <strong id="mobile-sticky-total">R$ 0,00</strong>
-        </div>
-        <a href="#agendamento" class="mobile-sticky-btn">
-            <i class="fa-regular fa-calendar-check"></i> Agendar
-        </a>
-    </div>
 
     <footer>
         <p>&copy; 2026 <span>GOLDENS BARBEARIA</span>. Todos os direitos reservados.</p>
@@ -1702,7 +1650,6 @@
             const summaryDuration = document.getElementById('summary-duration');
             const summaryServices = document.getElementById('summary-services');
             const summaryTotal = document.getElementById('summary-total');
-            const mobileStickyTotal = document.getElementById('mobile-sticky-total');
             const btnConfirm = document.getElementById('btn-confirm-booking');
             const feedbackEl = document.getElementById('booking-feedback');
 
@@ -1839,7 +1786,6 @@
                 const formattedTotal = `R$ ${total.toFixed(2).replace('.', ',')}`;
                 summaryDuration.textContent = `${totalDuration} min`;
                 summaryTotal.textContent = formattedTotal;
-                if (mobileStickyTotal) mobileStickyTotal.textContent = formattedTotal;
 
                 const isValid = state.services.length > 0 && state.dateText && state.time && state.clientName.length >= 2 && state.clientPhone.length >= 13;
                 btnConfirm.disabled = !isValid;
